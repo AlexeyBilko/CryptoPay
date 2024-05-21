@@ -79,7 +79,7 @@ const LoginPage = () => {
           </Button>
           {error && <Typography color="error" style={{ marginTop: '10px' }}>{error}</Typography>}
           <Link component={RouterLink} to="/register" variant="body2" style={{ marginBottom: '20px' }}>
-            Немає облікового запису? Зареструйся тут
+            Немає облікового запису? Зареструйся
           </Link>
         </form>
       </Box>

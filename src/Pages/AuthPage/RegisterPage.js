@@ -145,7 +145,6 @@ const RegisterPage = () => {
         </form>
         <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
           <DialogTitle>Підтвердження Електронної пошти</DialogTitle>
-          <DialogTitle>Перевірте свою поштову скриньку</DialogTitle>
           <DialogContent>
             <TextField
               label="Код верифікації"
