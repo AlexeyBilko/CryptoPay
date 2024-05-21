@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/cryptopay/precache-manifest.d7b00a6c7e5bea7c3948d9b8687738bc.js"
+  "/cryptopay/precache-manifest.fe511226801dd79ced6e3765144bd85b.js"
 );
 
 self.addEventListener('message', (event) => {

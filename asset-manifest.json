@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/cryptopay/static/css/main.2a4f241d.chunk.css",
-    "main.js": "/cryptopay/static/js/main.3dfdf87d.chunk.js",
-    "main.js.map": "/cryptopay/static/js/main.3dfdf87d.chunk.js.map",
+    "main.js": "/cryptopay/static/js/main.48b6e1f2.chunk.js",
+    "main.js.map": "/cryptopay/static/js/main.48b6e1f2.chunk.js.map",
     "runtime-main.js": "/cryptopay/static/js/runtime-main.23e748dc.js",
     "runtime-main.js.map": "/cryptopay/static/js/runtime-main.23e748dc.js.map",
-    "static/js/2.77189c15.chunk.js": "/cryptopay/static/js/2.77189c15.chunk.js",
-    "static/js/2.77189c15.chunk.js.map": "/cryptopay/static/js/2.77189c15.chunk.js.map",
+    "static/js/2.98f434e8.chunk.js": "/cryptopay/static/js/2.98f434e8.chunk.js",
+    "static/js/2.98f434e8.chunk.js.map": "/cryptopay/static/js/2.98f434e8.chunk.js.map",
     "index.html": "/cryptopay/index.html",
-    "precache-manifest.d7b00a6c7e5bea7c3948d9b8687738bc.js": "/cryptopay/precache-manifest.d7b00a6c7e5bea7c3948d9b8687738bc.js",
+    "precache-manifest.fe511226801dd79ced6e3765144bd85b.js": "/cryptopay/precache-manifest.fe511226801dd79ced6e3765144bd85b.js",
     "service-worker.js": "/cryptopay/service-worker.js",
     "static/css/main.2a4f241d.chunk.css.map": "/cryptopay/static/css/main.2a4f241d.chunk.css.map",
-    "static/js/2.77189c15.chunk.js.LICENSE.txt": "/cryptopay/static/js/2.77189c15.chunk.js.LICENSE.txt"
+    "static/js/2.98f434e8.chunk.js.LICENSE.txt": "/cryptopay/static/js/2.98f434e8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.23e748dc.js",
-    "static/js/2.77189c15.chunk.js",
+    "static/js/2.98f434e8.chunk.js",
     "static/css/main.2a4f241d.chunk.css",
-    "static/js/main.3dfdf87d.chunk.js"
+    "static/js/main.48b6e1f2.chunk.js"
   ]
 }
