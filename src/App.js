@@ -19,7 +19,7 @@ import EarningsPage from './Pages/Dashboard/EarningsPage'
 
 function App() {
   return (
-      <Router basename="/cryptopay">
+      <Router basename="https://alexeybilko.github.io/cryptopay">
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/login" element={<LoginPage />} />
