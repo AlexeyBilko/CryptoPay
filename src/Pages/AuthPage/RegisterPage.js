@@ -35,7 +35,7 @@ const RegisterPage = () => {
 
     try {
       const response = await axios.post('/Auth/verify-email', { email });
-      setGeneratedCode(response.data.VerificationCode);
+      setGeneratedCode(response.data.verificationCode);
       setIsDialogOpen(true);
     } catch (err) {
       setError(err.response?.data?.message || 'Email verification failed');
@@ -88,11 +88,11 @@ const RegisterPage = () => {
         }}
       >
         <Typography component="h1" variant="h5" align="center" sx={{ mb: 3, color: '#003366' }}>
-          Register
+          Реєстрація
         </Typography>
         <form onSubmit={handleRegister} style={{ width: '100%' }}>
           <TextField
-            label="Email"
+            label="Електронна пошта"
             variant="outlined"
             type="email"
             name="email"
@@ -103,7 +103,7 @@ const RegisterPage = () => {
             required
           />
           <TextField
-            label="Password"
+            label="Пароль"
             variant="outlined"
             type="password"
             name="password"
@@ -114,7 +114,7 @@ const RegisterPage = () => {
             required
           />
           <TextField
-            label="Confirm Password"
+            label="Підтвердження паролю"
             variant="outlined"
             type="password"
             name="confirmPassword"
@@ -125,7 +125,7 @@ const RegisterPage = () => {
             required
           />
           <TextField
-            label="Display Name"
+            label="Ім'я користувача"
             variant="outlined"
             type="text"
             name="displayName"
@@ -140,14 +140,15 @@ const RegisterPage = () => {
           </Button>
           {error && <Typography color="error" style={{ marginTop: '10px' }}>{error}</Typography>}
           <Link component={RouterLink} to="/login" variant="body2" style={{ marginBottom: '20px' }}>
-            Already have an account? Login here
+            Вже зареєстровані? Увійдіть тут
           </Link>
         </form>
         <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
-          <DialogTitle>Verify Email</DialogTitle>
+          <DialogTitle>Підтвердження Електронної пошти</DialogTitle>
+          <DialogTitle>Перевірте свою поштову скриньку</DialogTitle>
           <DialogContent>
             <TextField
-              label="Verification Code"
+              label="Код верифікації"
               variant="outlined"
               type="text"
               value={verificationCode}
@@ -160,10 +161,10 @@ const RegisterPage = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setIsDialogOpen(false)} color="primary">
-              Cancel
+              Відміна
             </Button>
             <Button onClick={handleVerifyCode} color="primary" disabled={isLoading}>
-              Verify
+              Перевірити
             </Button>
           </DialogActions>
         </Dialog>

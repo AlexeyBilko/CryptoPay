@@ -23,10 +23,10 @@ const LoginPage = () => {
         localStorage.setItem('refreshToken', response.data.refreshToken);
         navigate('/dashboard'); // Redirect to dashboard upon successful login
       } else {
-        throw new Error('Failed to login' + response.status + response.message);
+        throw new Error('Упс.. Помилка входу ' + response.status + response.message);
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to login');
+      setError(err.response?.data?.message || 'Упс.. Помилка входу ');
     }
   };
 
@@ -51,11 +51,11 @@ const LoginPage = () => {
         }}
       >
         <Typography component="h1" variant="h5" align="center" sx={{ mb: 3, color: '#003366' }}>
-          Login
+          Вхід в обліковий запис
         </Typography>
         <form onSubmit={handleLogin} style={{ width: '100%' }}>
           <TextField
-            label="Email"
+            label="Електронна пошта"
             variant="outlined"
             type="email"
             value={email}
@@ -65,7 +65,7 @@ const LoginPage = () => {
             required
           />
           <TextField
-            label="Password"
+            label="Пароль"
             variant="outlined"
             type="password"
             value={password}
@@ -79,7 +79,7 @@ const LoginPage = () => {
           </Button>
           {error && <Typography color="error" style={{ marginTop: '10px' }}>{error}</Typography>}
           <Link component={RouterLink} to="/register" variant="body2" style={{ marginBottom: '20px' }}>
-            Don't have an account? Register here
+            Немає облікового запису? Зареструйся тут
           </Link>
         </form>
       </Box>

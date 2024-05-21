@@ -21,17 +21,17 @@ const Navigation = ({ handleLogout }) => {
         )}
         <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: 'center', mx: 'auto' }}>
           <Link component={RouterLink} to="/dashboard" color="inherit" sx={{ m: 3, color: '#003366' }}>
-            Dashboard
+            Інформаційна панель
           </Link>
           <Link component={RouterLink} to="/earnings" color="inherit" sx={{ m: 3, color: '#003366' }}>
-            Earnings
+            Мій заробіток
           </Link>
           <Link component={RouterLink} to="/profile" color="inherit" sx={{ m: 3, color: '#003366' }}>
-            Profile
+            Профіль
           </Link>
         </Box>
         <Button onClick={handleLogout} variant="contained" sx={{ m: 2, bgcolor: '#003366', color: '#FAF8FC' }}>
-          Log Out
+            Вийти з акаунту
         </Button>
       </Toolbar>
     </AppBar>
@@ -189,7 +189,7 @@ const EarningsPage = () => {
           </Box>
         )}
         <Button variant="contained" sx={{ mb: 2, bgcolor: '#003366', color: '#FAF8FC' }} onClick={() => setOpenWithdrawDialog(true)}>
-          Withdraw Earnings
+          Вивести зароблену криптовалюту
         </Button>
         <Divider sx={{ my: 4 }} />
         <Box sx={{ display: 'flex', my: 2 }}>
@@ -211,7 +211,7 @@ const EarningsPage = () => {
           />
         </Box>
         <Button variant="contained" sx={{ mb: 2, bgcolor: '#003366', color: '#FAF8FC' }} onClick={handleGenerateReport}>
-          Generate PDF Report
+          Згенерувати PDF звіт
         </Button>
         <Divider sx={{ my: 4 }} />
         <Typography variant="h4" sx={{ mb: 2, color: '#003366' }}>Withdrawal History</Typography>
@@ -266,7 +266,7 @@ const EarningsPage = () => {
           open={openWithdrawDialog}
           onClose={() => setOpenWithdrawDialog(false)}
         >
-          <DialogTitle>Withdraw Earnings</DialogTitle>
+          <DialogTitle>Виведення криптовалюти</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Enter the details to withdraw your earnings.

@@ -18,13 +18,13 @@ const Navigation = () => {
       )}
           <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: 'center', mx: 'auto' }}>
             <Link component={RouterLink} to="/dashboard" color="inherit" sx={{ m: 3, color: '#003366' }}>
-              Dashboard
+            Інформаційна панель
             </Link>
             <Link component={RouterLink} to="/earnings" color="inherit" sx={{ m: 3, color: '#003366' }}>
-              Earnings
+            Мій заробіток
             </Link>
             <Link component={RouterLink} to="/profile" color="inherit" sx={{ m: 3, color: '#003366' }}>
-              Profile
+            Профіль
             </Link>
           </Box>
         <Button component={RouterLink} to="/dashboard" variant="contained" sx={{ m: 2, bgcolor: '#003366', color: '#FAF8FC' }}>
