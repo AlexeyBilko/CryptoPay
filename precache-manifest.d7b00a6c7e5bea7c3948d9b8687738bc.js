@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "25a1b801ead7caf36693fb11b7561431",
+    "revision": "4ae7b126276a429e8d7b8d4eabfa578a",
     "url": "/cryptopay/index.html"
   },
   {
-    "revision": "90076a6eafe388638c2d",
+    "revision": "c0c08b9a1e48ad7e1276",
     "url": "/cryptopay/static/css/main.2a4f241d.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cryptopay/static/js/2.77189c15.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "90076a6eafe388638c2d",
-    "url": "/cryptopay/static/js/main.16aeb5f8.chunk.js"
+    "revision": "c0c08b9a1e48ad7e1276",
+    "url": "/cryptopay/static/js/main.3dfdf87d.chunk.js"
   },
   {
     "revision": "b8db20a67d6929b91253",
