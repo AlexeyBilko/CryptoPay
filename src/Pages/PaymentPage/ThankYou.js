@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 const ThankYouPage = () => {
   const location = useLocation();
-  const { paymentPage, guestWalletAddress, payerEmail } = location.state || {};
+  const { paymentPage, guestWalletAddress, senderEmailAddress } = location.state || {};
 
   return (
     <Container component="main" maxWidth="sm" sx={{ marginTop: 8 }}>
@@ -25,7 +25,7 @@ const ThankYouPage = () => {
           <Typography variant="body1">Amount Crypto: {paymentPage?.amountDetails?.amountCrypto}</Typography>
           <Typography variant="body1">System Wallet Address: {paymentPage?.systemWallet?.walletNumber}</Typography>
           <Typography variant="body1">Your Wallet Address: {guestWalletAddress}</Typography>
-          <Typography variant="body1">Your Email: {payerEmail}</Typography>
+          <Typography variant="body1">Your Email: {senderEmailAddress}</Typography>
         </Box>
       </Paper>
     </Container>
