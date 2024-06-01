@@ -136,7 +136,7 @@ const RegisterPage = () => {
             required
           />
           <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2, mb: 2, bgcolor: '#003366', color: '#FAF8FC' }} disabled={isLoading}>
-            {isLoading ? <CircularProgress size={24} /> : 'Register'}
+            {isLoading ? <CircularProgress size={24} /> : 'Зареєструватися'}
           </Button>
           {error && <Typography color="error" style={{ marginTop: '10px' }}>{error}</Typography>}
           <Link component={RouterLink} to="/login" variant="body2" style={{ marginBottom: '20px' }}>

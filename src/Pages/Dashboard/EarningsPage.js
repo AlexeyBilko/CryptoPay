@@ -16,7 +16,7 @@ const Navigation = ({ handleLogout }) => {
       <Toolbar>
         {!isMobile && (
           <Typography variant="h6" sx={{ flexGrow: 1, color: '#003366' }}>
-            Crypto Payment Gateway
+            CryptoPay
           </Typography>
         )}
         <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: 'center', mx: 'auto' }}>
@@ -61,7 +61,7 @@ const EarningsPage = () => {
         });
         setEarnings(response.data);
       } catch (err) {
-        setError('Failed to fetch earnings');
+        setError('Не вдалося одержати інформацію про заробіток');
       }
     };
 
@@ -75,7 +75,7 @@ const EarningsPage = () => {
         if (err.response.data === "No withdrawal history found." && err.response.status === 404) {
           console.log('No withdrawals found for this user.');
         } else {
-          setError('Failed to fetch withdrawals');
+          setError('Не вдалося отримати інформацію про виведення коштів');
         }
       }
     };
@@ -86,17 +86,17 @@ const EarningsPage = () => {
 
   const handleWithdraw = async () => {
     if (!withdrawWallet) {
-      setWalletError('Wallet address is required');
+      setWalletError("Адреса гаманця є обов'язковою");
       return;
     }
 
     if (withdrawCurrency === 'BTC' && parseFloat(withdrawAmount) > earnings.currentBalanceBTC) {
-      setWithdrawError(`Insufficient balance. Current BTC balance: ${earnings.currentBalanceBTC}`);
+      setWithdrawError(`Недостатній баланс. Поточний баланс BTC: ${earnings.currentBalanceBTC}`);
       return;
     }
   
     if (withdrawCurrency === 'ETH' && parseFloat(withdrawAmount) > earnings.currentBalanceETH) {
-      setWithdrawError(`Insufficient balance. Current ETH balance: ${earnings.currentBalanceETH}`);
+      setWithdrawError(`Недостатній баланс. Поточний баланс ETH: ${earnings.currentBalanceETH}`);
       return;
     }
   
@@ -113,7 +113,7 @@ const EarningsPage = () => {
       setWithdrawError('');
       window.location.reload();
     } catch (err) {
-      setWithdrawError('Failed to withdraw earnings');
+      setWithdrawError('Не вдалося вивести зароблену криптовалюту.');
     } finally {
       setLoading(false);
     }
@@ -134,7 +134,7 @@ const EarningsPage = () => {
         )
       );
     } catch (err) {
-      setError('Failed to update transaction status');
+      setError('Не вдалося оновити стан транзакції');
     }
   };
 
@@ -145,6 +145,7 @@ const EarningsPage = () => {
           startDate: startDate,
           endDate: endDate
         },
+        responseType: 'arraybuffer',
         headers: { Authorization: `Bearer ${auth.accessToken}` }
       });
       const blob = new Blob([response.data], { type: 'application/pdf' });
@@ -155,7 +156,7 @@ const EarningsPage = () => {
       document.body.appendChild(link);
       link.click();
     } catch (err) {
-      setError('Failed to generate report');
+      setError('Не вдалося сформувати звітt');
     }
   };
 
@@ -168,7 +169,7 @@ const EarningsPage = () => {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
     } catch (err) {
-      setError('Log out failed');
+      setError('Не вдалося вийти з облікового запису');
     }
   };
 
@@ -177,15 +178,15 @@ const EarningsPage = () => {
       <Navigation handleLogout={handleLogout} />
       <Container maxWidth="lg" sx={{ py: 4 }}>
         {error && <Typography color="error">{error}</Typography>}
-        <Typography variant="h4" sx={{ mb: 2, color: '#003366' }}>Earnings Information</Typography>
+        <Typography variant="h4" sx={{ mb: 2, color: '#003366' }}>Інформація про заробіток</Typography>
         {earnings && (
           <Box sx={{ mb: 4 }}>
-            <Typography variant="h6">Total Earnings</Typography>
-            <Typography variant="body1">Total Earned BTC: {earnings.totalEarnedBTC}</Typography>
-            <Typography variant="body1">Total Earned ETH: {earnings.totalEarnedETH}</Typography>
-            <Typography variant="h6">Current Balance</Typography>
-            <Typography variant="body1">Current Balance BTC: {earnings.currentBalanceBTC}</Typography>
-            <Typography variant="body1">Current Balance ETH: {earnings.currentBalanceETH}</Typography>
+            <Typography variant="h6">Загальний заробіток</Typography>
+            <Typography variant="body1">Загальна кількість зароблених BTC: {earnings.totalEarnedBTC}</Typography>
+            <Typography variant="body1">Загальна кількість зароблених ETH: {earnings.totalEarnedETH}</Typography>
+            <Typography variant="h6">Поточний баланс</Typography>
+            <Typography variant="body1">Поточний баланс BTC: {earnings.currentBalanceBTC}</Typography>
+            <Typography variant="body1">Поточний баланс ETH: {earnings.currentBalanceETH}</Typography>
           </Box>
         )}
         <Button variant="contained" sx={{ mb: 2, bgcolor: '#003366', color: '#FAF8FC' }} onClick={() => setOpenWithdrawDialog(true)}>
@@ -194,7 +195,7 @@ const EarningsPage = () => {
         <Divider sx={{ my: 4 }} />
         <Box sx={{ display: 'flex', my: 2 }}>
           <TextField
-            label="Start Date"
+            label="Початкова дата"
             type="date"
             InputLabelProps={{ shrink: true }}
             value={startDate}
@@ -202,7 +203,7 @@ const EarningsPage = () => {
             sx={{ mr: 2 }}
           />
           <TextField
-            label="End Date"
+            label="Кінцева дата"
             type="date"
             InputLabelProps={{ shrink: true }}
             value={endDate}
@@ -214,20 +215,20 @@ const EarningsPage = () => {
           Згенерувати PDF звіт
         </Button>
         <Divider sx={{ my: 4 }} />
-        <Typography variant="h4" sx={{ mb: 2, color: '#003366' }}>Withdrawal History</Typography>
+        <Typography variant="h4" sx={{ mb: 2, color: '#003366' }}>Історія виведення криптовалюти</Typography>
         {withdrawals.length === 0 ? (
-          <Typography variant="body1">No withdrawals made yet.</Typography>) : (
+          <Typography variant="body1">Виведення криптовалют ще не здійснювалися.</Typography>) : (
           <Table sx={{ minWidth: 650, bgcolor: '#FAF8FC', borderRadius: 2 }}>
             <TableHead>
               <TableRow>
                 <TableCell sx={{ color: '#003366' }}>ID</TableCell>
-                <TableCell sx={{ color: '#003366' }}>Amount</TableCell>
-                <TableCell sx={{ color: '#003366' }}>Currency</TableCell>
-                <TableCell sx={{ color: '#003366' }}>Status</TableCell>
-                <TableCell sx={{ color: '#003366' }}>Requested Date</TableCell>
-                <TableCell sx={{ color: '#003366' }}>Completed Date</TableCell>
-                <TableCell sx={{ color: '#003366' }}>Transaction Hash</TableCell>
-                <TableCell sx={{ color: '#003366' }}>Update Status</TableCell>
+                <TableCell sx={{ color: '#003366' }}>К-ть</TableCell>
+                <TableCell sx={{ color: '#003366' }}>Криптовалюта</TableCell>
+                <TableCell sx={{ color: '#003366' }}>Статус</TableCell>
+                <TableCell sx={{ color: '#003366' }}>Дата запиту</TableCell>
+                <TableCell sx={{ color: '#003366' }}>Дата завершення</TableCell>
+                <TableCell sx={{ color: '#003366' }}>Хеш транзакції</TableCell>
+                <TableCell sx={{ color: '#003366' }}>Оновити статус</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -269,19 +270,19 @@ const EarningsPage = () => {
           <DialogTitle>Виведення криптовалюти</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Enter the details to withdraw your earnings.
+              Введіть дані для виведення заробленої криптовалюти.
             </DialogContentText>
             {withdrawError && <Typography color="error">{withdrawError}</Typography>}
             <Typography variant="body1">
-              Current Balance BTC: {earnings ? earnings.currentBalanceBTC : 'Loading...'}
+              Поточний баланс BTC: {earnings ? earnings.currentBalanceBTC : 'Loading...'}
             </Typography>
             <Typography variant="body1">
-              Current Balance ETH: {earnings ? earnings.currentBalanceETH : 'Loading...'}
+              Поточний баланс ETH: {earnings ? earnings.currentBalanceETH : 'Loading...'}
             </Typography>
             <TextField
               autoFocus
               margin="dense"
-              label="Amount"
+              label="Кількість"
               type="number"
               fullWidth
               value={withdrawAmount}
@@ -290,7 +291,7 @@ const EarningsPage = () => {
             <TextField
               select
               margin="dense"
-              label="Currency"
+              label="Криптовалюта"
               fullWidth
               value={withdrawCurrency}
               onChange={(e) => setWithdrawCurrency(e.target.value)}
@@ -300,7 +301,7 @@ const EarningsPage = () => {
             </TextField>
             <TextField
               margin="dense"
-              label="Wallet Address"
+              label="Адреса Гаманця"
               type="text"
               fullWidth
               value={withdrawWallet}
@@ -308,15 +309,15 @@ const EarningsPage = () => {
             />
             {walletError && <Typography color="error">{walletError}</Typography>}
             <DialogContentText sx={{ mt: 2, color: '#E65B40' }}>
-              It's very important to paste your correct address in the correct cryptocurrency. If there's a mistake, the crypto will be lost.
+            Дуже важливо вставити правильну адресу гаманця для правильної криптовалюті. Якщо ви помилитеся, криптовалюта буде втрачена.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpenWithdrawDialog(false)} color="primary">
-              Cancel
+              Відмінити
             </Button>
             <Button onClick={handleWithdraw} color="primary">
-              {loading ? <CircularProgress size={24} /> : 'Withdraw'}
+              {loading ? <CircularProgress size={24} /> : 'Вивести'}
             </Button>
           </DialogActions>
         </Dialog>

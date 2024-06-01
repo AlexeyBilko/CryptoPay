@@ -33,18 +33,18 @@ const PaymentPage = () => {
   const handleCopy = (text, type) => {
     navigator.clipboard.writeText(text).then(() => {
       if (type === 'address') {
-        setCopyText('Copied!');
-        setTimeout(() => setCopyText('Copy'), 2000);
+        setCopyText('Скопійовано.!');
+        setTimeout(() => setCopyText('Скопіювати'), 2000);
       } else if (type === 'crypto') {
-        setCopyCryptoText('Copied!');
-        setTimeout(() => setCopyCryptoText('Copy'), 2000);
+        setCopyCryptoText('Скопійовано.!');
+        setTimeout(() => setCopyCryptoText('Скопіювати'), 2000);
       }
     });
   };
 
   const handleVerifyPayment = async () => {
     if (!guestWalletAddress || !senderEmailAddress) {
-      setDialogMessage('Please provide both wallet address and email address.');
+      setDialogMessage('Будь ласка, вкажіть адресу гаманця та адресу електронної пошти.');
       setDialogOpen(true);
       return;
     }
@@ -64,14 +64,14 @@ const PaymentPage = () => {
       const response = await axios.post('/Transaction/verify-tr', requestBody);
 
       if (response.data.status === 'not found') {
-        setDialogMessage('Transaction not found.');
+        setDialogMessage('Транзакцію не знайдено.');
       } else if (response.data.status === 'pending') {
-        setDialogMessage('Transaction pending.');
+        setDialogMessage('Транзакція очікує на підтвердження.');
       } else if (response.data.status === 'successful') {
         navigate('/thank-you', { state: { paymentPage, guestWalletAddress, senderEmailAddress } });
       }
     } catch (err) {
-      setDialogMessage('Failed to verify payment.');
+      setDialogMessage('Не вдалося підтвердити платіж.');
     }
     setDialogOpen(true);
   };
@@ -88,13 +88,13 @@ const PaymentPage = () => {
         <Typography component="h1" variant="h4" color="primary">{paymentPage.title}</Typography>
         <Typography component="h2" variant="h6" color="textSecondary">{paymentPage.description}</Typography>
         <Box sx={{ mt: 4 }}>
-          <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Cryptocurrency: {paymentPage.amountDetails?.currency?.currencyCode}</Typography>
+          <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Криптовалюта: {paymentPage.amountDetails?.currency?.currencyCode}</Typography>
           {!paymentPage.isDonation && (
             <>
-              <Typography variant="body1">Amount USD: {paymentPage.amountDetails?.amountUSD}</Typography>
+              <Typography variant="body1">Сума в ГРН: {paymentPage.amountDetails?.amountUSD}</Typography>
               <TextField
                 fullWidth
-                label="Amount Crypto:"
+                label="Кількість криптовалюти:"
                 value={paymentPage.amountDetails?.amountCrypto || ''}
                 InputProps={{
                   readOnly: true,
@@ -108,7 +108,7 @@ const PaymentPage = () => {
           )}
           <TextField
             fullWidth
-            label="System Wallet Address"
+            label="Адреса гаманця на яку слід здійснити переказ"
             value={paymentPage.systemWallet?.walletNumber || ''}
             InputProps={{
               readOnly: true,
@@ -120,14 +120,14 @@ const PaymentPage = () => {
           />
           <TextField
             fullWidth
-            label="Your Wallet Address"
+            label="Адреса Вашого гаманця, з якого здійснено переказ"
             value={guestWalletAddress}
             onChange={(e) => setGuestWalletAddress(e.target.value)}
             sx={{ mt: 2 }}
           />
           <TextField
             fullWidth
-            label="Your Email Address"
+            label="Ваша електронна адреса"
             value={senderEmailAddress}
             onChange={(e) => setSenderEmailAddress(e.target.value)}
             sx={{ mt: 2 }}
@@ -136,12 +136,12 @@ const PaymentPage = () => {
         </Box>
       </Paper>
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-        <DialogTitle>Payment Status</DialogTitle>
+        <DialogTitle>Статус платежу</DialogTitle>
         <DialogContent>
           <DialogContentText>{dialogMessage}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDialogOpen(false)} color="primary">Close</Button>
+          <Button onClick={() => setDialogOpen(false)} color="primary">Закрити</Button>
         </DialogActions>
       </Dialog>
     </Container>

@@ -20,7 +20,7 @@ const Navigation = ({ handleLogout }) => {
       <Toolbar>
         {!isMobile && (
           <Typography variant="h6" sx={{ flexGrow: 1, color: '#003366' }}>
-            Crypto Payment Gateway
+            CryptoPay
           </Typography>
         )}
         <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: 'center', mx: 'auto' }}>

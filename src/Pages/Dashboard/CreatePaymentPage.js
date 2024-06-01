@@ -13,7 +13,7 @@ const Navigation = () => {
     <Toolbar>
       {!isMobile && (
         <Typography variant="h6" sx={{ flexGrow: 1, color: '#003366' }}>
-          Crypto Payment Gateway
+          CryptoPay
         </Typography>
       )}
           <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: 'center', mx: 'auto' }}>
@@ -28,7 +28,7 @@ const Navigation = () => {
             </Link>
           </Box>
         <Button component={RouterLink} to="/dashboard" variant="contained" sx={{ m: 2, bgcolor: '#003366', color: '#FAF8FC' }}>
-          Back to Dashboard
+          Повернутися Назад
         </Button>
       </Toolbar>
     </AppBar>
@@ -72,7 +72,7 @@ const CreatePaymentPage = () => {
         }
       } catch (err) {
         console.error('Failed to fetch payment page:', err);
-        setError('Failed to fetch payment page');
+        setError('Не вдалося відобразити платіжну сторінку');
         navigate('/dashboard');
       }
     };
@@ -114,7 +114,7 @@ const CreatePaymentPage = () => {
         amountUSD: response.data.amountUSD
       }));
     } catch (err) {
-      setError('Failed to convert crypto to USD: ' + err.response?.data?.Error || err.message);
+      setError('Не вдалося конвертувати криптовалюту в ГРН: ' + err.response?.data?.Error || err.message);
     }
   };
 
@@ -131,7 +131,7 @@ const CreatePaymentPage = () => {
         amountCrypto: response.data.amountCrypto
       }));
     } catch (err) {
-      setError('Failed to convert USD to crypto: ' + err.response?.data?.Error || err.message);
+      setError('Не вдалося конвертувати ГРН в криптовалюту: ' + err.response?.data?.Error || err.message);
     }
   };
 
@@ -139,7 +139,7 @@ const CreatePaymentPage = () => {
     e.preventDefault();
 
     if (!paymentPage.isDonation && (paymentPage.amountUSD < 10 || paymentPage.amountCrypto < 0.00001)) {
-      setError('Amount USD must be at least 100 and Amount Crypto must be at least 0.001.');
+      setError('Сума ГРН повинна бути не менше 500, а сума Crypto - не менше 0.001.');
       return;
     }
 
@@ -165,7 +165,7 @@ const CreatePaymentPage = () => {
       }
       navigate('/dashboard');
     } catch (err) {
-      setError('Failed to save payment page');
+      setError('Не вдалося зберегти платіжну сторінку');
     }
   };
 
@@ -176,7 +176,7 @@ const CreatePaymentPage = () => {
       });
       navigate('/dashboard');
     } catch (err) {
-      setError('Failed to delete payment page');
+      setError('Не вдалося видалити платіжну сторінку');
     }
   };
 
@@ -194,13 +194,13 @@ const CreatePaymentPage = () => {
           mx="auto"
         >
       <Typography variant="h4" sx={{ mt: 4, mb: 2 }}>
-        {id ? 'Update' : 'Create'} Payment Page
+        {id ? 'Оновити' : 'Створити'} Платіжну Сторінку
       </Typography>
       {error && <Typography color="error">{error}</Typography>}
       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <TextField
           fullWidth
-          label="Title"
+          label="Назва"
           name="title"
           value={paymentPage.title}
           onChange={handleChange}
@@ -209,7 +209,7 @@ const CreatePaymentPage = () => {
         />
         <TextField
           fullWidth
-          label="Description"
+          label="Опис"
           name="description"
           value={paymentPage.description}
           onChange={handleChange}
@@ -226,13 +226,13 @@ const CreatePaymentPage = () => {
               disabled={!!id} // Disable when updating
             />
           }
-          label="Is Donation"
+          label="Чи є благодійним збором?"
         />
         {!paymentPage.isDonation && (
           <>
             <TextField
               fullWidth
-              label="Amount USD"
+              label="Сума в ГРН"
               name="amountUSD"
               value={paymentPage.amountUSD}
               onChange={handleChange}
@@ -242,7 +242,7 @@ const CreatePaymentPage = () => {
             />
             <TextField
               fullWidth
-              label="Amount Crypto"
+              label="К-ть криптовалюти"
               name="amountCrypto"
               value={paymentPage.amountCrypto}
               onChange={handleChange}
@@ -254,7 +254,7 @@ const CreatePaymentPage = () => {
         )}
         <Select
           fullWidth
-          label="Currency Code"
+          label="Обарна Криптовалюта"
           name="currencyCode"
           value={paymentPage.currencyCode}
           onChange={handleChange}
@@ -266,7 +266,7 @@ const CreatePaymentPage = () => {
           <MenuItem value="ETH">ETH</MenuItem>
         </Select>
         <Button type="submit" variant="contained" color="primary" sx={{ mt: 2, bgcolor: '#003366', color: '#FAF8FC'  }}>
-          {id ? 'Update' : 'Create'} Payment Page
+          {id ? 'Оновити' : 'Створити'} Платіжну Сторінку
         </Button>
         {id && (
           <Button
@@ -275,7 +275,7 @@ const CreatePaymentPage = () => {
             sx={{ mt: 2, ml: 2, bgcolor: '#E65B40', color: '#FAF8FC'  }}
             onClick={() => setOpenDeleteDialog(true)}
           >
-            Delete Payment Page
+            Видалити Платіжну Сторінку
           </Button>
         )}
       </Box>
@@ -283,17 +283,17 @@ const CreatePaymentPage = () => {
         open={openDeleteDialog}
         onClose={() => setOpenDeleteDialog(false)}
       >
-        <DialogTitle sx={{ color: '#003366' }}>Confirm Delete</DialogTitle>
+        <DialogTitle sx={{ color: '#003366' }}>Підтвердіть Видалення</DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ color: '#E65B40' }}>
-            Are you sure you want to delete this payment page? This action cannot be undone.
+          Ви впевнені, що хочете видалити цю платіжну сторінку? Ця дія не може бути скасована.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenDeleteDialog(false)} color="primary" sx={{ color: '#003366' }}>
-            Cancel
+            Відмінити
           </Button>
-          <Button onClick={handleDelete} color="secondary" sx={{ color: '#E65B40' }}>Delete</Button>
+          <Button onClick={handleDelete} color="secondary" sx={{ color: '#E65B40' }}>Видалити все одно</Button>
         </DialogActions>
       </Dialog>
         </Box>

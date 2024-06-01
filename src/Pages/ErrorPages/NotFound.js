@@ -29,13 +29,13 @@ const NotFound = () => {
         404
       </Typography>
       <Typography variant="h5" color="textSecondary" paragraph>
-        Oops! The page you're looking for doesn't exist.
+        Ой! Сторінка, яку ви шукаєте, не існує.
       </Typography>
       <Typography variant="body1" color="textSecondary" paragraph>
-        It looks like the page you are trying to reach is either not available or has been moved.
+        Схоже, що сторінка, на яку ви намагаєтеся перейти, неіснує або недоступна.
       </Typography>
       <Button component={RouterLink} to="/" variant="contained" color="primary">
-        Go Back Home
+        Повернутися на головну сторінку
       </Button>
     </NotFoundContainer>
   );

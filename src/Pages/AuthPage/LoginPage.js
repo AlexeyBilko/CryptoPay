@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Container, Box, Link, TextField, Button, Typography } from '@mui/material';
+import { Container, Box, Link, TextField, Button, Typography, CircularProgress } from '@mui/material';
 import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,11 +8,13 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
     try {
       const response = await axios.post('/Auth/login', { email, password });
@@ -22,11 +24,14 @@ const LoginPage = () => {
         console.log(localStorage.getItem('accessToken'));
         localStorage.setItem('refreshToken', response.data.refreshToken);
         navigate('/dashboard'); // Redirect to dashboard upon successful login
+        setIsLoading(false);
       } else {
+        setIsLoading(false);
         throw new Error('Упс.. Помилка входу ' + response.status + response.message);
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Упс.. Помилка входу ');
+      setIsLoading(false);
     }
   };
 
@@ -74,8 +79,8 @@ const LoginPage = () => {
             margin="normal"
             required
           />
-          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2, mb: 2, bgcolor: '#003366', color: '#FAF8FC' }}>
-            Login
+          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2, mb: 2, bgcolor: '#003366', color: '#FAF8FC' }} disabled={isLoading}>
+          {isLoading ? <CircularProgress size={24} /> : 'Увійти'}
           </Button>
           {error && <Typography color="error" style={{ marginTop: '10px' }}>{error}</Typography>}
           <Link component={RouterLink} to="/register" variant="body2" style={{ marginBottom: '20px' }}>

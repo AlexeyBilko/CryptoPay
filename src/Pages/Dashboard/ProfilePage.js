@@ -17,7 +17,7 @@ const Navigation = ({ handleLogout }) => {
       <Toolbar>
         {!isMobile && (
           <Typography variant="h6" sx={{ flexGrow: 1, color: '#003366' }}>
-            Crypto Payment Gateway
+            CryptoPay
           </Typography>
         )}
         <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: 'center', mx: 'auto' }}>
@@ -64,7 +64,7 @@ const ProfilePage = () => {
         setDisplayName(response.data.displayName);
         setOriginalDisplayName(response.data.displayName);
       } catch (err) {
-        console.error('Failed to fetch user data:', err);
+        console.error('Не вдалося отримати дані користувача:', err);
       }
     };
 
@@ -136,7 +136,7 @@ const ProfilePage = () => {
       localStorage.removeItem('userId');
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.message || 'Log out failed');
+      setError(err.response?.data?.message || 'Не вдалося вийти з облікового запису');
     }
   };
 
@@ -154,13 +154,13 @@ const ProfilePage = () => {
           mx="auto"
         >
           <Typography variant="h4" sx={{ mt: 4, mb: 2 }}>
-            User Profile
+          Профіль користувача
           </Typography>
           {error && <Typography color="error">{error}</Typography>}
           <Box component="form" sx={{ mt: 3 }}>
             <TextField
               fullWidth
-              label="Display Name"
+              label="Ім'я користувача"
               name="displayName"
               value={displayName}
               onChange={handleDisplayNameChange}
@@ -168,15 +168,15 @@ const ProfilePage = () => {
             />
             {isEditingDisplayName && (
               <Button variant="contained" sx={{ mt: 2, bgcolor: '#003366', color: '#FAF8FC' }} onClick={handleSaveDisplayName}>
-                Save
+                Зберегти Нове Ім'я
               </Button>
             )}
             <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
-              Change Password
+              Змінити пароль
             </Typography>
             <TextField
               fullWidth
-              label="Old Password"
+              label="Поточний пароль"
               type="password"
               name="oldPassword"
               value={oldPassword}
@@ -185,7 +185,7 @@ const ProfilePage = () => {
             />
             <TextField
               fullWidth
-              label="New Password"
+              label="Новий пароль"
               type="password"
               name="newPassword"
               value={newPassword}
@@ -194,7 +194,7 @@ const ProfilePage = () => {
             />
             <TextField
               fullWidth
-              label="Confirm New Password"
+              label="Підтвердження нового паролю"
               type="password"
               name="confirmNewPassword"
               value={confirmNewPassword}
@@ -202,7 +202,7 @@ const ProfilePage = () => {
               margin="normal"
             />
             <Button variant="contained" sx={{ mt: 2, bgcolor: '#003366', color: '#FAF8FC' }} onClick={handleSavePassword}>
-              Save Password
+              Підтвердити Зміну паролю
             </Button>
           </Box>
 
@@ -210,15 +210,15 @@ const ProfilePage = () => {
             <DialogTitle>Confirm {dialogType === 'displayName' ? 'Display Name Change' : 'Password Change'}</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                Are you sure you want to {dialogType === 'displayName' ? 'change your display name?' : 'change your password?'}
+              Ви впевнені, що бажаєте {dialogType === 'displayName' ? ' змінити своє ім\'я для відображення?' : 'змінити пароль?'}
               </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleDialogClose} color="primary">
-                Cancel
+                Відмінити
               </Button>
               <Button onClick={handleDialogConfirm} color="primary">
-                Confirm
+                Підтвердити
               </Button>
             </DialogActions>
           </Dialog>

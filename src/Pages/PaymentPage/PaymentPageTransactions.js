@@ -20,7 +20,7 @@ const PaymentPageTransactions = () => {
         });
         setTransactions(response.data);
       } catch (err) {
-        setError('Failed to fetch transactions.');
+        setError('Не вдалося завантажити транзакції.');
       }
     };
 
@@ -30,18 +30,18 @@ const PaymentPageTransactions = () => {
   return (
     <Container component="main" maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Typography variant="h4" gutterBottom>
-        Transactions for Payment Page {id}
+       Транзакції для платіжної сторінки з ID: {id}
       </Typography>
       {error && <Typography color="error">{error}</Typography>}
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Transaction ID</TableCell>
-            <TableCell>From Wallet</TableCell>
-            <TableCell>To Wallet</TableCell>
-            <TableCell>Amount</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Timestamp</TableCell>
+            <TableCell>ID Транзакції</TableCell>
+            <TableCell>З Гаманця</TableCell>
+            <TableCell>До Гаманця</TableCell>
+            <TableCell>К-ть</TableCell>
+            <TableCell>Статус</TableCell>
+            <TableCell>Дата</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -59,7 +59,7 @@ const PaymentPageTransactions = () => {
       </Table>
       <Box mt={2}>
         <Button variant="contained" color="primary" onClick={() => navigate('/dashboard')}>
-          Back to Dashboard
+          Назад до інформаційної панелі
         </Button>
       </Box>
     </Container>
