@@ -139,6 +139,10 @@ const EarningsPage = () => {
   };
 
   const handleGenerateReport = async () => {
+    if (new Date(startDate) >= new Date(endDate)){
+      setError('Початкова дата має бути перед Кінцевою датою');
+      return;
+    }
     try {
       const response = await axios.get('/Earnings/generate-earnings-report', {
         params: {
@@ -156,7 +160,7 @@ const EarningsPage = () => {
       document.body.appendChild(link);
       link.click();
     } catch (err) {
-      setError('Не вдалося сформувати звітt');
+      setError('Не вдалося сформувати звіт');
     }
   };
 
@@ -209,6 +213,7 @@ const EarningsPage = () => {
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
             sx={{ mr: 2 }}
+            inputProps={{ max: new Date().toISOString().split("T")[0] }} // Restrict future dates
           />
         </Box>
         <Button variant="contained" sx={{ mb: 2, bgcolor: '#003366', color: '#FAF8FC' }} onClick={handleGenerateReport}>

@@ -46,10 +46,25 @@ const CreatePaymentPage = () => {
     isDonation: false,
     pageId: ''
   });
+  const [conversionRate, setConversionRate] = useState({ USD: 0, Crypto: 0 });
   const [error, setError] = useState('');
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const navigate = useNavigate();
   const auth = useAuth();
+
+  const fetchConversionRates = async (currencyCode) => {
+    try {
+      const response = await axios.post('/PaymentPage/convertToUSD', {
+        cryptoAmount: 1,
+        currencyCode
+      }, {
+        headers: { Authorization: `Bearer ${auth.accessToken}` }
+      });
+      setConversionRate({ USD: response.data.amountUSD, Crypto: 1 });
+    } catch (err) {
+      setError('Не вдалося отримати курс конвертації');
+    }
+  };
 
   useEffect(() => {
     const fetchPaymentPage = async () => {
@@ -77,6 +92,7 @@ const CreatePaymentPage = () => {
       }
     };
 
+
     if (id) {
       fetchPaymentPage();
     } else {
@@ -84,10 +100,16 @@ const CreatePaymentPage = () => {
         ...prevState,
         pageId: -1
       }));
+      fetchConversionRates(paymentPage.currencyCode);
     }
+
+    const interval = setInterval(() => {
+      fetchConversionRates(paymentPage.currencyCode);
+    }, 180000); // Кожні 3 хвилини
+
   }, [id, auth.accessToken, auth.userId, navigate]);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value, checked, type } = e.target;
     setPaymentPage(prevState => ({
       ...prevState,
@@ -95,9 +117,22 @@ const CreatePaymentPage = () => {
     }));
 
     if (name === 'amountCrypto' && value) {
-      convertCryptoToUSD(value);
+      setPaymentPage(prevState => ({
+        ...prevState,
+        amountUSD: (parseFloat(value) * conversionRate.USD).toFixed(2)
+      }));
     } else if (name === 'amountUSD' && value) {
-      convertUSDToCrypto(value);
+      setPaymentPage(prevState => ({
+        ...prevState,
+        amountCrypto: (parseFloat(value) / conversionRate.USD).toFixed(6)
+      }));
+    } else if (name === 'currencyCode') {
+      await fetchConversionRates(value);
+      setPaymentPage(prevState => ({
+        ...prevState,
+        amountCrypto: '',
+        amountUSD: ''
+      }));
     }
   };
 
@@ -232,7 +267,7 @@ const CreatePaymentPage = () => {
           <>
             <TextField
               fullWidth
-              label="Сума в ГРН"
+              label="Сума в USD"
               name="amountUSD"
               value={paymentPage.amountUSD}
               onChange={handleChange}

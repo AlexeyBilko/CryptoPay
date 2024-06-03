@@ -120,7 +120,7 @@ const Dashboard = () => {
       <Navigation handleLogout={handleLogout} />
       <Container maxWidth="lg" sx={{ py: 4 }}>
         {error && <Typography color="error">{error}</Typography>}
-        <Typography variant="h4" sx={{ mt: 4, mb: 2 }}>
+        <Typography component={RouterLink} to="/payment-page-transactions/all" variant="h4" sx={{ mt: 4, mb: 2, display: 'flex', color: '#003366', textDecoration: 'none' }}>
           Мої платіжні сторінки
         </Typography>
         <Button

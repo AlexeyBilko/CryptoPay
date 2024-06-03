@@ -15,10 +15,14 @@ const PaymentPageTransactions = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await axios.get(`/Transaction/bypage/${id}`, {
-            headers: { Authorization: `Bearer ${auth.accessToken}` }
-        });
-        setTransactions(response.data);
+        if(id === "all"){
+          const response = await axios.get('/Transaction/all', { headers: { Authorization: `Bearer ${auth.accessToken}` } });
+          setTransactions(response.data);
+        }
+        else{
+          const response = await axios.get(`/Transaction/bypage/${id}`, { headers: { Authorization: `Bearer ${auth.accessToken}` } });
+          setTransactions(response.data);
+        }
       } catch (err) {
         setError('Не вдалося завантажити транзакції.');
       }
@@ -30,7 +34,7 @@ const PaymentPageTransactions = () => {
   return (
     <Container component="main" maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Typography variant="h4" gutterBottom>
-       Транзакції для платіжної сторінки з ID: {id}
+        {id ? `Транзакції для платіжної сторінки з ID: ${id}` : 'Всі транзакції'}
       </Typography>
       {error && <Typography color="error">{error}</Typography>}
       <Table>
