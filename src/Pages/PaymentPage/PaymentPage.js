@@ -71,7 +71,7 @@ const PaymentPage = () => {
         navigate('/thank-you', { state: { paymentPage, guestWalletAddress, senderEmailAddress } });
       }
     } catch (err) {
-      setDialogMessage('Не вдалося підтвердити платіж.');
+      setDialogMessage('Не вдалося підтвердити платіж (коміссія перевищує к-ть криптовалюти)');
     }
     setDialogOpen(true);
   };

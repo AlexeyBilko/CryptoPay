@@ -173,8 +173,8 @@ const CreatePaymentPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!paymentPage.isDonation && (paymentPage.amountUSD < 10 || paymentPage.amountCrypto < 0.00001)) {
-      setError('Сума ГРН повинна бути не менше 500, а сума Crypto - не менше 0.001.');
+    if (!paymentPage.isDonation && (paymentPage.amountUSD < 0.5 || paymentPage.amountCrypto < 0.0000099)) {
+      setError('Сума USD повинна бути не менше 0.5, а сума Crypto - не менше 0.0000099.');
       return;
     }
 
@@ -289,7 +289,7 @@ const CreatePaymentPage = () => {
         )}
         <Select
           fullWidth
-          label="Обарна Криптовалюта"
+          label="Обрана Криптовалюта"
           name="currencyCode"
           value={paymentPage.currencyCode}
           onChange={handleChange}

@@ -1,7 +1,6 @@
-// src/Pages/PaymentPage/PaymentPageTransactions.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Typography, Table, TableBody, TableCell, TableHead, TableRow, Button, Box } from '@mui/material';
+import { Container, Typography, Link, Table, TableBody, TableCell, TableHead, TableRow, Button, Box } from '@mui/material';
 import axios from '../../api/axios';
 import useAuth from '../../hooks/useAuth';
 
@@ -46,6 +45,7 @@ const PaymentPageTransactions = () => {
             <TableCell>К-ть</TableCell>
             <TableCell>Статус</TableCell>
             <TableCell>Дата</TableCell>
+            <TableCell>Хеш</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -57,6 +57,18 @@ const PaymentPageTransactions = () => {
               <TableCell>{transaction.actualAmountCrypto}</TableCell>
               <TableCell>{transaction.status}</TableCell>
               <TableCell>{new Date(transaction.blockTimestamp).toLocaleString()}</TableCell>
+              <TableCell sx={{ color: '#003366' }}>
+                    <Link 
+                      href={transaction.paymentPage.systemWallet.title === 'BTC' ? 
+                        `https://live.blockcypher.com/btc-testnet/tx/${transaction.transactionHash}` : 
+                        `https://sepolia.etherscan.io/tx/${transaction.transactionHash}`
+                      } 
+                      target="_blank" 
+                      sx={{ color: '#003366' }}
+                    >
+                      {`${transaction.transactionHash.slice(0, 6)}...`}
+                    </Link>
+                  </TableCell>
             </TableRow>
           ))}
         </TableBody>
