@@ -8,8 +8,8 @@ const PaymentPage = () => {
   const [paymentPage, setPaymentPage] = useState({});
   const [guestWalletAddress, setGuestWalletAddress] = useState('');
   const [senderEmailAddress, setSenderEmailAddress] = useState('');
-  const [copyText, setCopyText] = useState('Copy');
-  const [copyCryptoText, setCopyCryptoText] = useState('Copy');
+  const [copyText, setCopyText] = useState('Скопіювати');
+  const [copyCryptoText, setCopyCryptoText] = useState('Скопіювати');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState('');
 

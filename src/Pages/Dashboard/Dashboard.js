@@ -190,21 +190,21 @@ const Dashboard = () => {
           <DialogTitle id="alert-dialog-title" sx={{ color: '#003366' }}>{"Delete Payment Page"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description" sx={{              color: '#E65B40' }}>
-              Are you sure you want to delete this payment page? This action cannot be undone.
+            Ви впевнені, що хочете видалити цю платіжну сторінку? Ця дія не може бути скасована.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} sx={{ color: '#003366' }}>
-              Cancel
+              Відмінити
             </Button>
             <Button onClick={() => handleDelete(deleteId)} sx={{ color: '#E65B40' }} autoFocus>
-              Delete
+              Видалити
             </Button>
           </DialogActions>
         </Dialog>
         <Divider sx={{ my: 4, mt: 14 }} />
         <Typography variant="body1" sx={{ mt: 4, textAlign: 'center', color: '#003366' }}>
-          Наш проект має на меті спростити налаштування і оплату криптовалютних рахунків, зробивши їх доступними для більшого кола користувачів.
+        Метою дипломного проєкту є спрощення процесу створення криптовалютних рахунків для оплати в Bitcoin і Ethereum продавцям товарів і послуг, і надання можливості їх клієнтам сплачувати ці рахунки за рахунок створення зручного вебзастосунку.
         </Typography>
         <Divider sx={{ my: 4 }} />
       </Container>
