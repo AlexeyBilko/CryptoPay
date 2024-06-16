@@ -12,7 +12,7 @@ const PaymentPage = () => {
   const [copyCryptoText, setCopyCryptoText] = useState('Скопіювати');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
