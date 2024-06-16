@@ -185,6 +185,7 @@ const EarningsPage = () => {
       });
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
+    navigate('/login');
     } catch (err) {
       setError('Не вдалося вийти з облікового запису');
     }

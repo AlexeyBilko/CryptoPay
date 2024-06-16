@@ -87,7 +87,7 @@ const Dashboard = () => {
       localStorage.removeItem('refreshToken');
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.message || 'Log out failed');
+      setError('Не вдалося вийти з облікового запису');
     }
   };
 
