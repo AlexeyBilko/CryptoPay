@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Typography, TextField, Button, Box, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Paper } from '@mui/material';
+import { Container, Typography, TextField, Button, Box, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Paper, CircularProgress } from '@mui/material';
 import axios from '../../api/axios';
 
 const PaymentPage = () => {
@@ -12,6 +12,7 @@ const PaymentPage = () => {
   const [copyCryptoText, setCopyCryptoText] = useState('Скопіювати');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -48,6 +49,8 @@ const PaymentPage = () => {
       setDialogOpen(true);
       return;
     }
+    
+    setIsLoading(true);
 
     try {
       const requestBody = {
@@ -68,9 +71,12 @@ const PaymentPage = () => {
       } else if (response.data.status === 'pending') {
         setDialogMessage('Транзакція очікує на підтвердження.');
       } else if (response.data.status === 'successful') {
+        setIsLoading(false);
         navigate('/thank-you', { state: { paymentPage, guestWalletAddress, senderEmailAddress } });
       }
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
       setDialogMessage('Не вдалося підтвердити платіж (коміссія перевищує к-ть криптовалюти)');
     }
     setDialogOpen(true);
@@ -91,7 +97,7 @@ const PaymentPage = () => {
           <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Криптовалюта: {paymentPage.amountDetails?.currency?.currencyCode}</Typography>
           {!paymentPage.isDonation && (
             <>
-              <Typography variant="body1">Сума в ГРН: {paymentPage.amountDetails?.amountUSD}</Typography>
+              <Typography variant="body1">Сума в USD: {paymentPage.amountDetails?.amountUSD}</Typography>
               <TextField
                 fullWidth
                 label="Кількість криптовалюти:"
@@ -132,7 +138,9 @@ const PaymentPage = () => {
             onChange={(e) => setSenderEmailAddress(e.target.value)}
             sx={{ mt: 2 }}
           />
-          <Button variant="contained" color="primary" onClick={handleVerifyPayment} sx={{ mt: 2 }}>Verify Payment</Button>
+          <Button variant="contained" color="primary" onClick={handleVerifyPayment} sx={{ mt: 2 }} disabled={isLoading}>
+            {isLoading ? <CircularProgress size={24} /> : "Перевірити платіж" }
+            </Button>
         </Box>
       </Paper>
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>

@@ -51,7 +51,7 @@ const EarningsPage = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [loading, setLoading] = useState(false); // New state variable for loading
+  const [loading, setLoading] = useState(false);
   const auth = useAuth();
 
   useEffect(() => {
