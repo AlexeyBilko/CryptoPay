@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from '../../api/axios';
 import useAuth from '../../hooks/useAuth';
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import UpdateIcon from '@mui/icons-material/Update';
 
 const Navigation = ({ handleLogout }) => {
@@ -53,6 +53,7 @@ const EarningsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const auth = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEarnings = async () => {
