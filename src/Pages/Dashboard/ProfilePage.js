@@ -108,7 +108,7 @@ const ProfilePage = () => {
       // Update password
       try {
         if (newPassword !== confirmNewPassword) {
-          throw new Error('New passwords do not match');
+          throw new Error('Новий пароль не підтверджено');
         }
 
         await axios.put('/auth/updatePassword', { oldPassword, newPassword }, {
@@ -207,7 +207,7 @@ const ProfilePage = () => {
           </Box>
 
           <Dialog open={openDialog} onClose={handleDialogClose}>
-            <DialogTitle>Confirm {dialogType === 'displayName' ? 'Display Name Change' : 'Password Change'}</DialogTitle>
+            <DialogTitle>Підтвердіть {dialogType === 'displayName' ? 'зміну імені користувача' : 'зміну паролю'}</DialogTitle>
             <DialogContent>
               <DialogContentText>
               Ви впевнені, що бажаєте {dialogType === 'displayName' ? ' змінити своє ім\'я для відображення?' : 'змінити пароль?'}

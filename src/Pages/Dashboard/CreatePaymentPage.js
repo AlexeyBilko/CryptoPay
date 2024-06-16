@@ -62,7 +62,13 @@ const CreatePaymentPage = () => {
       });
       setConversionRate({ USD: response.data.amountUSD, Crypto: 1 });
     } catch (err) {
-      setError('Не вдалося отримати курс конвертації');
+      if(currencyCode === "btc"){
+          setConversionRate({ USD: 66575.98, Crypto: 1 });
+      }
+      else {
+        setConversionRate({ USD: 3757.98, Crypto: 1 });
+      }
+      setError('API токени от-от закінчатся');
     }
   };
 

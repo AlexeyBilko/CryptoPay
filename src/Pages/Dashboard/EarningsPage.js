@@ -50,6 +50,7 @@ const EarningsPage = () => {
   const [withdrawWallet, setWithdrawWallet] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false); // New state variable for loading
   const auth = useAuth();
 
@@ -143,8 +144,16 @@ const EarningsPage = () => {
       setError('Початкова дата має бути перед Кінцевою датою');
       return;
     }
+    
+    setIsLoading(true);
     try {
-      const response = await axios.get('/Earnings/generate-earnings-report', {
+      const axios1 = axios.create({
+        baseURL: "http://localhost:5000/api",
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const response = await axios1.get('/Earnings/generate-earnings-report', {
         params: {
           startDate: startDate,
           endDate: endDate
@@ -152,6 +161,9 @@ const EarningsPage = () => {
         responseType: 'arraybuffer',
         headers: { Authorization: `Bearer ${auth.accessToken}` }
       });
+      setIsLoading(false);
+      console.log(response);
+      console.log(response.data);
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -160,7 +172,8 @@ const EarningsPage = () => {
       document.body.appendChild(link);
       link.click();
     } catch (err) {
-      setError('Не вдалося сформувати звіт');
+        setError('Не вдалося сформувати звіт (Закінчилися API токени, спробуйте пізніше)');
+        setIsLoading(false);
     }
   };
 
@@ -216,8 +229,8 @@ const EarningsPage = () => {
             inputProps={{ max: new Date().toISOString().split("T")[0] }} // Restrict future dates
           />
         </Box>
-        <Button variant="contained" sx={{ mb: 2, bgcolor: '#003366', color: '#FAF8FC' }} onClick={handleGenerateReport}>
-          Згенерувати PDF звіт
+        <Button variant="contained" sx={{ mb: 2, bgcolor: '#003366', color: '#FAF8FC' }} onClick={handleGenerateReport} disabled={isLoading}>
+          {isLoading ? <CircularProgress size={24} /> : 'Згенерувати PDF звіт'}
         </Button>
         <Divider sx={{ my: 4 }} />
         <Typography variant="h4" sx={{ mb: 2, color: '#003366' }}>Історія виведення криптовалюти</Typography>
